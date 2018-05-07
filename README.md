@@ -1,5 +1,8 @@
 # api-test
-Vodqa restaurant api test example
+Vodqa restaurant api test example using rest assured
+
+## Rest- Assured
+https://github.com/rest-assured/rest-assured
 
 ## Steps to deploy REST API for Testing 
 Deploy the restaurant REST API's by going through the steps mentioned in below article:
