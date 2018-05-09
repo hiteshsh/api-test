@@ -23,4 +23,14 @@ public class Dishes {
                 .when()
                 .post("/dishes");
     }
+
+    public Response getDishById(String dishId,String accessToken){
+        return given()
+                .baseUri("http://localhost:3000/api")
+                .contentType("application/json")
+                .queryParam("access_token",accessToken)
+                .pathParam("dishId",dishId)
+                .when()
+                .get("/dishes/{dishId}");
+    }
 }

@@ -77,4 +77,31 @@ public class RestaurantTest {
         Assert. assertEquals( 400,dishsuccessresponse.getPrice(),0);
 
     }
+
+    @Test
+    public void canListDish(){
+        Registration registration= new Registration();
+        Response response= registration.register("hitesh60","hitesh@123","hitesh60@gmail.com");
+        Assert.assertEquals( HttpStatus.SC_OK,response.getStatusCode());
+
+        Login login= new Login();
+        Response responseLogin=login.login("hitesh60","hitesh@123");
+        Assert.assertEquals( HttpStatus.SC_OK,responseLogin.getStatusCode());
+        LoginSuccessResponse loginresponse=responseLogin.as(LoginSuccessResponse.class);
+        String accesstoken=loginresponse.getId();
+
+        Dishes dishes= new Dishes();
+        Response dishResponse=dishes.addDish("burger",400,accesstoken);
+        DishAddSuccessResponse dishsuccessresponse=dishResponse.as(DishAddSuccessResponse.class);
+        Assert.assertEquals( HttpStatus.SC_OK,dishResponse.getStatusCode());
+        Assert.assertNotNull(dishsuccessresponse.getId());
+
+        Response getDishResponse=dishes.getDishById(dishsuccessresponse.getId(),accesstoken);
+        DishAddSuccessResponse getdishsuccessresponse=getDishResponse.as(DishAddSuccessResponse.class);
+        Assert.assertEquals( HttpStatus.SC_OK,getDishResponse.getStatusCode());
+        Assert.assertEquals( dishsuccessresponse.getId(),getdishsuccessresponse.getId());
+        Assert.assertEquals( dishsuccessresponse.getName(),getdishsuccessresponse.getName());
+        Assert.assertEquals( dishsuccessresponse.getPrice(),getdishsuccessresponse.getPrice(),0);
+
+    }
 }
